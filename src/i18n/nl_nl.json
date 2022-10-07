@@ -1,5 +1,8 @@
 {
-    "index": {
-        "title": "Dit is de home pagina"
-    }
+  "index": {
+    "title": "Dit is de home pagina"
+  },
+  "about": {
+    "title": "Dit is de about pagina"
+  }
 }

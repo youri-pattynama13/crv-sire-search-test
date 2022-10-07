@@ -1,14 +1,19 @@
 <template>
   <div class="">
-    <input v-model="search" @keydown="test($event)" />
+    <input
+      v-model="search"
+      @keydown.enter="isOpen = false"
+      @keydown.esc="isOpen = false"
+      @input="onChange"
+      placeholder="Zoek"
+    />
     <p>{{ $t("index.title") }}</p>
-    {{ filteredPosts.map((post) => post.body) }}
     <table class="table">
       <thead>
         <tr>
-          <th>Movie ID</th>
-          <th>Title</th>
-          <th>body</th>
+          <th>id</th>
+          <th>Naam</th>
+          <th>Beschrijving</th>
           <th></th>
         </tr>
       </thead>
@@ -31,49 +36,35 @@ export default defineComponent({
   components: {},
   data() {
     return {
-      backSpace: false,
       search: "",
+      filteredPosts: [{}],
       posts: [
         {
           id: 1,
-          title: "Post 1",
-          body: "Vue.js is cool",
+          title: "Woody",
+          body: "Grote stier",
         },
         {
           id: 2,
-          title: "Post 2",
-          body: "Javascript is cool",
+          title: "Torito",
+          body: "Kleine stier",
         },
       ],
     };
   },
   methods: {
-    test(e: any) {
-      console.log(e)
-      if (e.code === "Backspace") {
-        this.backSpace = true;
-      } else {
-        this.backSpace = false;
-      }
-    },
-  },
-  computed: {
-    filteredPosts(e): Array<{ id: number; title: string; body: string }> {
-      console.log(this.backSpace);
+    onChange() {
       if (this.search.length >= 3) {
-        return this.posts.filter((post) => {
-          return post.body.toLowerCase().includes(this.search.toLowerCase());
+      console.log("Now searching for", this.search);
+      // do something with this.search
+       this.filteredPosts = this.posts.filter((post) => {
+          return post.title.toLowerCase().includes(this.search.toLowerCase());
         });
       } else {
-        if (this.backSpace) {
-          return this.posts.filter((post) => {
-            return post.body.toLowerCase().includes(this.search.toLowerCase());
-          });
-        } else {
-          return [];
-        }
+        return
       }
     },
   },
+
 });
 </script>
